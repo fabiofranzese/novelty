@@ -10,6 +10,7 @@ import UserNotifications
 
 struct OnboardingView: View {
     @AppStorage("onboarding") var onboarding = false
+    @EnvironmentObject var manager : NoveltyManager
 
     var body: some View {
         VStack(spacing: 24) {
@@ -27,7 +28,9 @@ struct OnboardingView: View {
             Button("Get Started") {
                 onboarding = true
                 NotificationScheduler.scheduleDailyNotification()
+                manager.proposeNewNovelty()
                 print(onboarding)
+                print(manager.todayNovelty?.title, manager.todayNovelty?.id)
             }
             .buttonStyle(.borderedProminent)
         }
@@ -41,7 +44,4 @@ struct OnboardingView: View {
             }
         }
     }
-}
-#Preview {
-    OnboardingView()
 }
