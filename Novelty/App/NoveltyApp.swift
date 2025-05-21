@@ -15,6 +15,7 @@ struct contemplativeApp: App {
         WindowGroup {
             if onboarding {
                 MainView()
+                    .environmentObject(manager)
             } else {
                 OnboardingView()
             }
