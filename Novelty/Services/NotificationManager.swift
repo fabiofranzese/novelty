@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 class NotificationScheduler {
-    static func scheduleDailyNotification(at hour: Int = 10) {
+    static func scheduleDailyNotification(at hour: Int = Int.random(in: 9...23)) {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
@@ -17,7 +17,7 @@ class NotificationScheduler {
 
         var dateComponents = DateComponents()
         dateComponents.hour = hour
-        dateComponents.minute = 5
+        dateComponents.minute = Int.random(in: 0...59)
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
