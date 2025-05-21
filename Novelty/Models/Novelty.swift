@@ -6,11 +6,8 @@
 //
 import Foundation
 
-enum NoveltyCategory: String, Codable, CaseIterable {
-    case sensorial
-    case motor
-    case cognitive
-    case digital
+enum NoveltyCategory: String, Codable {
+    case sensory, motor, digital, cognitive
 }
 
 enum NoveltyStatus: String, Codable {
@@ -22,11 +19,10 @@ enum NoveltyStatus: String, Codable {
 }
 
 struct Novelty: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let title: String
     let description: String
     let category: NoveltyCategory
-    var status: NoveltyStatus
-    let duration: TimeInterval? // For time-based novelties
-    let createdAt: Date
+    var status: NoveltyStatus?
+    var createdAt: Date?
 }
