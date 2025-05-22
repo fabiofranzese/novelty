@@ -10,13 +10,12 @@ import SwiftUI
 class NoveltyManager: ObservableObject {
     @Published var todayNovelty: Novelty?
     @Published var history: [Novelty] = []
+    private(set) var allNovelties: [Novelty] = []
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     
     private let historyURL = FileManager.default
             .urls(for: .documentDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("novelty_history.json")
-
-    private(set) var allNovelties: [Novelty] = []
     
     init() {
         loadNovelties()
@@ -60,32 +59,26 @@ class NoveltyManager: ObservableObject {
         }
 
         func proposeNewNovelty() {
-            let available = allNovelties.filter { novelty in
-                !history.contains(where: { $0.id == novelty.id && $0.status == .completed })
-            }
-
-            guard let selected = available.randomElement() ?? allNovelties.randomElement() else { return }
-
-            var novelty = selected
+            var novelty = allNovelties.randomElement()!
             novelty.createdAt = Date()
             novelty.status = .proposed
             todayNovelty = novelty
             NextNoveltyId = novelty.id
-
-            history.append(novelty)
+            NotificationScheduler.scheduleDailyNotification()
+        }
+    
+        func acceptTodayNovelty() {
+            todayNovelty?.status = .accepted
+        }
+    
+        func discardTodayNovelty() {
+            proposeNewNovelty()
+        }
+    
+        func doTodayNovelty() {
+            todayNovelty?.status = .completed
+            history.append(todayNovelty!)
             saveHistory()
+            proposeNewNovelty()
         }
-
-    func updateTodayNoveltyStatus(to newStatus: NoveltyStatus) {
-        guard var novelty = todayNovelty else { return }
-        novelty.status = newStatus
-        
-        if let index = history.firstIndex(where: { $0.id == novelty.id }) {
-            history[index] = novelty
-        } else {
-            history.append(novelty)
-        }
-        todayNovelty = novelty
-        saveHistory()
-    }
 }

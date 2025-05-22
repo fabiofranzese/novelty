@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var manager: NoveltyManager
-    
+    @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
@@ -18,11 +18,19 @@ struct MainView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text(manager.todayNovelty?.id ?? "no")
-            Text(NextNoveltyId)
-            Text(Date(timeIntervalSince1970: NextNoveltyTime).description)
-            Text(NextNoveltyTime.description)
+            Text("Next Novelty is scheduled for: \(NextNoveltyId), Time: \(Date(timeIntervalSince1970: NextNoveltyTime).description)")
         }
         .padding()
+        
+        Text("Novelties Done:")
+        ForEach(manager.history) { novelty in
+            Text(novelty.title)
+        }
+        Button("Reset") {
+            onboarding = false
+            NextNoveltyId = ""
+            NextNoveltyTime = Double.infinity
+        }
     }
 }
 

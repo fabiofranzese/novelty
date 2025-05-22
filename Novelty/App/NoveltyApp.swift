@@ -18,6 +18,7 @@ struct contemplativeApp: App {
             if onboarding {
                 if Date() >= Date(timeIntervalSince1970: NextNoveltyTime) {
                     NoveltyRouterView(novelty: manager.todayNovelty!)
+                        .environmentObject(manager)
                 } else {
                     MainView()
                         .environmentObject(manager)

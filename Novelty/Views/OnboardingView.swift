@@ -27,7 +27,6 @@ struct OnboardingView: View {
             
             Button("Get Started") {
                 onboarding = true
-                NotificationScheduler.scheduleDailyNotification()
                 manager.proposeNewNovelty()
                 print(onboarding)
                 print(manager.todayNovelty?.title, manager.todayNovelty?.id)

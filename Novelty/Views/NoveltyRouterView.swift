@@ -12,15 +12,19 @@ struct NoveltyRouterView: View {
     @EnvironmentObject var manager : NoveltyManager
 
     var body: some View {
-        switch novelty.category.rawValue {
+        switch manager.todayNovelty?.category.rawValue ?? "unknown" {
         case "sensory":
-            SensoryView(novelty: novelty)
+            SensoryView()
+                .environmentObject(manager)
         case "motor":
-            MotorView(novelty: novelty)
+            MotorView()
+                .environmentObject(manager)
         case "cognitive":
-            CognitiveView(novelty: novelty)
+            CognitiveView()
+                .environmentObject(manager)
         case "digital":
-            DigitalView(novelty: novelty)
+            DigitalView()
+                .environmentObject(manager)
         default:
             Text("Unsupported novelty type")
         }
