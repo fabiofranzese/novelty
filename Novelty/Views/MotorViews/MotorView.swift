@@ -1,5 +1,5 @@
 //
-//  MotorView.swift
+//  Untitled.swift
 //  Novelty
 //
 //  Created by Fabio on 21/05/25.
@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MotorView: View {
     @EnvironmentObject var manager: NoveltyManager
+    @State private var noveltytime: Double = Double.infinity
     
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
@@ -16,7 +17,7 @@ struct MotorView: View {
     var body: some View {
         NavigationStack {
             
-            Text("Motor Novelty")
+            Text("Cognitive Novelty")
             Text(manager.todayNovelty?.title ?? "No Novelty")
             HStack {
                 Button("Discard") {
@@ -40,6 +41,12 @@ struct MotorView: View {
                 NextNoveltyTime = Double.infinity
             }
             .buttonStyle(.borderedProminent)
+        }.onAppear {
+            noveltytime = NextNoveltyTime
+        }
+        .onChange(of: NextNoveltyTime) { newValue in
+            noveltytime = newValue
         }
     }
 }
+

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CognitiveView: View {
     @EnvironmentObject var manager: NoveltyManager
+    @State private var noveltytime: Double = Double.infinity
     
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
@@ -40,6 +41,11 @@ struct CognitiveView: View {
                 NextNoveltyTime = Double.infinity
             }
             .buttonStyle(.borderedProminent)
+        }.onAppear {
+            noveltytime = NextNoveltyTime
+        }
+        .onChange(of: NextNoveltyTime) { newValue in
+            noveltytime = newValue
         }
     }
 }

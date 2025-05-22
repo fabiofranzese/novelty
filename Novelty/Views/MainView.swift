@@ -9,14 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var manager: NoveltyManager
+    @EnvironmentObject var timeManager: TimeManager
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
+            Text("current time: \(timeManager.currentTime.description)")
             Text(manager.todayNovelty?.id ?? "no")
             Text("Next Novelty is scheduled for: \(NextNoveltyId), Time: \(Date(timeIntervalSince1970: NextNoveltyTime).description)")
         }
@@ -25,6 +24,9 @@ struct MainView: View {
         Text("Novelties Done:")
         ForEach(manager.history) { novelty in
             Text(novelty.title)
+        }
+        Button("Do Novelty Now") {
+            NextNoveltyTime = Date().timeIntervalSince1970
         }
         Button("Reset") {
             onboarding = false

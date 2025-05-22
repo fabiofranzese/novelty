@@ -11,7 +11,7 @@ import SwiftUI
 
 class NotificationScheduler {
     
-    static func scheduleDailyNotification(at hour: Int = 12) {
+    static func scheduleDailyNotification(at hour: Int = 17) {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
@@ -19,7 +19,7 @@ class NotificationScheduler {
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .minute], from: Date())
         dateComponents.hour = hour
-        dateComponents.minute! += 2
+        dateComponents.minute! += 1
         
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
@@ -35,6 +35,7 @@ class NotificationScheduler {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
                 print("Scheduled notification on \(String(format: "%02d", dateComponents.day ?? -1)) at \(String(format: "%02d", hour)):\(String(format: "%02d", dateComponents.minute ?? -1))")
+                print(Calendar.current.date(from: dateComponents)?.timeIntervalSince1970)
                 UserDefaults.standard.set(Calendar.current.date(from: dateComponents)?.timeIntervalSince1970, forKey: "NextNoveltyTime")
             }
         }
@@ -47,7 +48,7 @@ class NotificationScheduler {
         content.sound = .default
         
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 120, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
         
         let request = UNNotificationRequest(
             identifier: "dailyNovelty",
@@ -60,7 +61,7 @@ class NotificationScheduler {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
                 print("Scheduled notification in 10 minutes")
-                UserDefaults.standard.set(Date().addingTimeInterval(120).timeIntervalSince1970, forKey: "NextNoveltyTime")
+                UserDefaults.standard.set(Date().addingTimeInterval(60).timeIntervalSince1970, forKey: "NextNoveltyTime")
             }
         }
     }

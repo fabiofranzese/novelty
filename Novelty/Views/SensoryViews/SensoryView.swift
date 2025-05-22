@@ -1,13 +1,15 @@
 //
-//  SensoryView.swift
+//  Untitled.swift
 //  Novelty
 //
 //  Created by Fabio on 21/05/25.
 //
+
 import SwiftUI
 
 struct SensoryView: View {
     @EnvironmentObject var manager: NoveltyManager
+    @State private var noveltytime: Double = Double.infinity
     
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
@@ -15,7 +17,7 @@ struct SensoryView: View {
     var body: some View {
         NavigationStack {
             
-            Text("Sensory Novelty")
+            Text("Cognitive Novelty")
             Text(manager.todayNovelty?.title ?? "No Novelty")
             HStack {
                 Button("Discard") {
@@ -39,5 +41,12 @@ struct SensoryView: View {
                 NextNoveltyTime = Double.infinity
             }
             .buttonStyle(.borderedProminent)
-        }    }
+        }.onAppear {
+            noveltytime = NextNoveltyTime
+        }
+        .onChange(of: NextNoveltyTime) { newValue in
+            noveltytime = newValue
+        }
+    }
 }
+

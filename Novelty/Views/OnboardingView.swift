@@ -11,6 +11,9 @@ import UserNotifications
 struct OnboardingView: View {
     @AppStorage("onboarding") var onboarding = false
     @EnvironmentObject var manager : NoveltyManager
+    @EnvironmentObject var timeManager: TimeManager
+    
+    @State private var viewcontroller: Bool = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -30,10 +33,17 @@ struct OnboardingView: View {
                 manager.proposeNewNovelty()
                 print(onboarding)
                 print(manager.todayNovelty?.title, manager.todayNovelty?.id)
+                print("Current time: \(timeManager.currentTime.timeIntervalSince1970)")
             }
             .buttonStyle(.borderedProminent)
         }
         .padding()
+        .onAppear {
+            viewcontroller = onboarding
+        }
+        .onChange(of: onboarding) { newValue in
+            viewcontroller = newValue
+        }
     }
 
     func requestNotificationPermission() {

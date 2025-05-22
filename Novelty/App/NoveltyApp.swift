@@ -10,23 +10,16 @@ import SwiftUI
 @main
 struct contemplativeApp: App {
     @StateObject var manager = NoveltyManager()
+    @StateObject var timeManager = TimeManager()
+    @State private var currentTime = Date()
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some Scene {
         WindowGroup {
-            if onboarding {
-                if Date() >= Date(timeIntervalSince1970: NextNoveltyTime) {
-                    NoveltyRouterView(novelty: manager.todayNovelty!)
-                        .environmentObject(manager)
-                } else {
-                    MainView()
-                        .environmentObject(manager)
-                }
-            } else {
-                OnboardingView()
-                    .environmentObject(manager)
-            }
+            RootRouterView()
+                .environmentObject(manager)
+                .environmentObject(timeManager)
         }
     }
 }
