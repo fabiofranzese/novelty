@@ -20,7 +20,7 @@ struct RootRouterView: View {
             if onboarding {
                 if timeManager.currentTime >= Date(timeIntervalSince1970: NextNoveltyTime) {
                     if let novelty = manager.todayNovelty {
-                        NoveltyRouterView(novelty: novelty)
+                        NoveltyRouterView()
                             .environmentObject(manager)
                     } else {
                         Text("No novelty loaded.")

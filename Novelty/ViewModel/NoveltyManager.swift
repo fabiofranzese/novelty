@@ -12,6 +12,7 @@ class NoveltyManager: ObservableObject {
     @Published var history: [Novelty] = []
     private(set) var allNovelties: [Novelty] = []
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
+    @AppStorage("CurrentNoveltyStatus") var CurrentNoveltyStatus: NoveltyStatus = .proposed
     
     private let historyURL = FileManager.default
             .urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -56,12 +57,14 @@ class NoveltyManager: ObservableObject {
     
         private func loadTodayNovelty() {
             self.todayNovelty = allNovelties.first {$0.id == NextNoveltyId}
+            self.todayNovelty?.status = CurrentNoveltyStatus
         }
 
         func proposeNewNovelty() {
             var novelty = allNovelties.randomElement()!
             novelty.createdAt = Date()
             novelty.status = .proposed
+            CurrentNoveltyStatus = .proposed
             todayNovelty = novelty
             NextNoveltyId = novelty.id
             NotificationScheduler.scheduleDailyNotification()
@@ -69,6 +72,7 @@ class NoveltyManager: ObservableObject {
     
         func acceptTodayNovelty() {
             todayNovelty?.status = .accepted
+            CurrentNoveltyStatus = .accepted
         }
     
         func discardTodayNovelty() {
@@ -77,6 +81,7 @@ class NoveltyManager: ObservableObject {
     
         func doTodayNovelty() {
             todayNovelty?.status = .completed
+            CurrentNoveltyStatus = .completed
             history.append(todayNovelty!)
             saveHistory()
             proposeNewNovelty()

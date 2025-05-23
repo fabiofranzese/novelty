@@ -15,6 +15,7 @@ struct contemplativeApp: App {
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
+    @AppStorage("CurrentNoveltyStatus") var CurrentNoveltyStatus: NoveltyStatus = .proposed
     var body: some Scene {
         WindowGroup {
             RootRouterView()

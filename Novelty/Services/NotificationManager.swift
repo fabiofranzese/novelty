@@ -11,7 +11,7 @@ import SwiftUI
 
 class NotificationScheduler {
     
-    static func scheduleDailyNotification(at hour: Int = 17) {
+    static func scheduleDailyNotification(at hour: Int = 11) {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
