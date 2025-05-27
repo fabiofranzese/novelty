@@ -15,16 +15,16 @@ struct NoveltyRouterView: View {
         NavigationStack {
             switch manager.todayNovelty?.category.rawValue ?? "unknown" {
             case "s":
-                SensoryView()
+                GeneralNoveltyProposalView()
                     .environmentObject(manager)
             case "m":
-                MotorView()
+                GeneralNoveltyProposalView()
                     .environmentObject(manager)
             case "c":
-                CognitiveView()
+                GeneralNoveltyProposalView()
                     .environmentObject(manager)
             case "d":
-                DigitalView()
+                GeneralNoveltyProposalView()
                     .environmentObject(manager)
             default:
                 let status = manager.todayNovelty?.status
