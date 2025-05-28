@@ -1,13 +1,13 @@
 //
-//  Untitled.swift
+//  MidNoveltyView.swift
 //  Novelty
 //
-//  Created by Fabio on 21/05/25.
+//  Created by Fabio on 28/05/25.
 //
 
 import SwiftUI
 
-struct GeneralNoveltyProposalView: View {
+struct MidNoveltyView: View {
     @EnvironmentObject var manager: NoveltyManager
     @EnvironmentObject var noveltyTimerManager: NoveltyTimerManager
     @State private var noveltytime: Double = Double.infinity
@@ -20,21 +20,19 @@ struct GeneralNoveltyProposalView: View {
             
             Text("General Novelty")
             Text(manager.todayNovelty?.title ?? "No Novelty")
-            HStack {
-                Button("Discard") {
-                    manager.discardTodayNovelty()
-                    print("Novelty Discarded", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
-                Button("Accept") {
-                    noveltyTimerManager.currentNovelty = manager.todayNovelty
-                    noveltyTimerManager.startLiveActivity()
-                    manager.acceptTodayNovelty()
-                    print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
-                Button("Delay") {
-                    NotificationScheduler.delayNotification()
-                    print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
+            VStack {
+                Text("Accepted")
+                ProgressView(value: noveltyTimerManager.progress)
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .padding()
+                
+                if !noveltyTimerManager.isTimerRunning{
+                    Button("Feedback") {
+                        manager.doTodayNovelty()
+                        noveltyTimerManager.endLiveActivity()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
             }
             
             Button("Reset") {

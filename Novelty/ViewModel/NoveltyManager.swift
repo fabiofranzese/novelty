@@ -80,6 +80,11 @@ class NoveltyManager: ObservableObject {
         }
     
         func doTodayNovelty() {
+            todayNovelty?.status = .feedback
+            CurrentNoveltyStatus = .feedback
+        }
+    
+        func doTodayNoveltyFeedback() {
             todayNovelty?.status = .completed
             CurrentNoveltyStatus = .completed
             history.append(todayNovelty!)

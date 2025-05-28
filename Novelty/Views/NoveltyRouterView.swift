@@ -38,12 +38,14 @@ struct NoveltyRouterView: View {
                         .environmentObject(manager)
                         .environmentObject(noveltyTimerManager)
                 } else if status == .accepted{
-                    Text("Accepted")
-                    Button("Complete"){
-                        manager.doTodayNovelty()
-                        noveltyTimerManager.endLiveActivity()
+                    MidNoveltyView()
+                        .environmentObject(manager)
+                        .environmentObject(noveltyTimerManager)
+                } else if status == .feedback {
+                    Button("Do Feedback"){
+                        manager.doTodayNoveltyFeedback()
+                        // Manage end of live activity
                     }
-                    .buttonStyle(.borderedProminent)
                 } else {
                     Text("\(manager.todayNovelty?.status?.rawValue), \(manager.todayNovelty?.title)")
                 }

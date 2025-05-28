@@ -11,14 +11,14 @@ import SwiftUI
 
 class NotificationScheduler {
     
-    static func scheduleDailyNotification(at hour: Int = 10) {
+    static func scheduleDailyNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
         content.sound = .default
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .hour, .day, .minute], from: Date())
-        dateComponents.minute! += 1
+        dateComponents.minute! += 2
         
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

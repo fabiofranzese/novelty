@@ -8,11 +8,13 @@
 import ActivityKit
 import WidgetKit
 import SwiftUI
+import Foundation
 
 struct TimerAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
         var emoji: String
+        var timeLeft: TimeInterval
     }
 
     // Fixed non-changing properties about your activity go here!
@@ -26,6 +28,8 @@ struct TimerLiveActivity: Widget {
             VStack {
                 Text("Novelty: \(context.attributes.novelty?.title ?? "Unknown Novelty")")
                     .font(.headline)
+                Text("Hello \(context.state.timeLeft.format(using: [.minute, .second]))")
+                    .font(.subheadline)
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
@@ -47,8 +51,8 @@ struct TimerLiveActivity: Widget {
                 DynamicIslandExpandedRegion(.bottom) {
                     Text("Novelty: \(context.attributes.novelty?.description ?? "Unknown Novelty")")
                         .font(.headline)
-                    Text("Novelty: \(context.attributes.novelty?.description ?? "Unknown Novelty")")
-                        .font(.headline)
+                    Text("Time Left: \(context.state.timeLeft.format(using: [.minute, .second]))")
+                        .font(.subheadline)
                 }
             } compactLeading: {
                 Text("L")
@@ -71,11 +75,11 @@ extension TimerAttributes {
 
 extension TimerAttributes.ContentState {
     fileprivate static var smiley: TimerAttributes.ContentState {
-        TimerAttributes.ContentState(emoji: "😀")
+        TimerAttributes.ContentState(emoji: "😀", timeLeft: 300)
      }
      
      fileprivate static var starEyes: TimerAttributes.ContentState {
-         TimerAttributes.ContentState(emoji: "🤩")
+         TimerAttributes.ContentState(emoji: "🤩", timeLeft: 300)
      }
 }
 
@@ -84,4 +88,14 @@ extension TimerAttributes.ContentState {
 } contentStates: {
     TimerAttributes.ContentState.smiley
     TimerAttributes.ContentState.starEyes
+}
+
+extension TimeInterval {
+    func format(using units: NSCalendar.Unit) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = units
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter.string(from: self) ?? ""
+    }
 }

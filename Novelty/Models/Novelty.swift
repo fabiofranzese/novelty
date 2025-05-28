@@ -14,6 +14,7 @@ enum NoveltyStatus: String, Codable {
     case proposed
     case accepted
     case completed
+    case feedback
     case delayed
     case discarded
 }

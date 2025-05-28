@@ -57,7 +57,7 @@ struct TimerEntryView : View {
     }
 }
 
-struct Timer: Widget {
+struct Timerz: Widget {
     let kind: String = "Timer"
 
     var body: some WidgetConfiguration {
@@ -77,7 +77,7 @@ struct Timer: Widget {
 }
 
 #Preview(as: .systemSmall) {
-    Timer()
+    Timerz()
 } timeline: {
     SimpleEntry(date: .now, emoji: "😀")
     SimpleEntry(date: .now, emoji: "🤩")
