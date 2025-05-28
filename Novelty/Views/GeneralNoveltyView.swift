@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GeneralNoveltyProposalView: View {
     @EnvironmentObject var manager: NoveltyManager
+    @EnvironmentObject var noveltyTimerManager: NoveltyTimerManager
     @State private var noveltytime: Double = Double.infinity
     
     @AppStorage("onboarding") var onboarding: Bool = false
@@ -26,6 +27,8 @@ struct GeneralNoveltyProposalView: View {
                 }.buttonStyle(.borderedProminent)
                 Button("Accept") {
                     manager.acceptTodayNovelty()
+                    noveltyTimerManager.currentNovelty = manager.todayNovelty
+                    noveltyTimerManager.startLiveActivity()
                     print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
                 }.buttonStyle(.borderedProminent)
                 Button("Delay") {
@@ -48,48 +51,3 @@ struct GeneralNoveltyProposalView: View {
         }
     }
 }
-
-struct GeneralNoveltyVProposalView: View {
-    @EnvironmentObject var manager: NoveltyManager
-    @State private var noveltytime: Double = Double.infinity
-    
-    @AppStorage("onboarding") var onboarding: Bool = false
-    @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
-    @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
-    var body: some View {
-        NavigationStack {
-            
-            Text("General Novelty")
-            Text(manager.todayNovelty?.title ?? "No Novelty")
-            HStack {
-                Button("Discard") {
-                    manager.discardTodayNovelty()
-                    print("Novelty Discarded", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
-                Button("Accept") {
-                    manager.acceptTodayNovelty()
-                    manager.doTodayNovelty()
-                    print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
-                Button("Delay") {
-                    NotificationScheduler.delayNotification()
-                    print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
-                }.buttonStyle(.borderedProminent)
-            }
-            
-            Button("Reset") {
-                onboarding = false
-                NextNoveltyId = ""
-                NextNoveltyTime = Double.infinity
-            }
-            .buttonStyle(.borderedProminent)
-        }.onAppear {
-            noveltytime = NextNoveltyTime
-        }
-        .onChange(of: NextNoveltyTime) { newValue in
-            noveltytime = newValue
-        }
-    }
-}
-
-

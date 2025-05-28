@@ -17,8 +17,7 @@ class NotificationScheduler {
         content.body = "Tap to view today's challenge."
         content.sound = .default
         
-        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .minute], from: Date())
-        dateComponents.hour = hour
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .hour, .day, .minute], from: Date())
         dateComponents.minute! += 1
         
 
