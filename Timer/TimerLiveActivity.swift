@@ -12,12 +12,10 @@ import Foundation
 
 struct TimerAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
         var emoji: String
         var timeLeft: TimeInterval
+        var endDate: Date
     }
-
-    // Fixed non-changing properties about your activity go here!
     var novelty: Novelty?
 }
 
@@ -28,16 +26,15 @@ struct TimerLiveActivity: Widget {
             VStack {
                 Text("Novelty: \(context.attributes.novelty?.title ?? "Unknown Novelty")")
                     .font(.headline)
-                Text("Hello \(context.state.timeLeft.format(using: [.minute, .second]))")
+                Text("Time Left: \(context.state.timeLeft.format(using: [.minute, .second]))")
                     .font(.subheadline)
+                Text("Time Left: \(context.state.endDate.timeIntervalSince1970 - Date().timeIntervalSince1970, format: .number.precision(.fractionLength(2))) seconds")
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
 
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.center) {
                     Text("Novelty: \(context.attributes.novelty?.title ?? "Unknown Novelty")")
                         .font(.headline)
@@ -53,6 +50,7 @@ struct TimerLiveActivity: Widget {
                         .font(.headline)
                     Text("Time Left: \(context.state.timeLeft.format(using: [.minute, .second]))")
                         .font(.subheadline)
+                    Text("Time Left: \(context.state.endDate.timeIntervalSince1970 - Date().timeIntervalSince1970, format: .number.precision(.fractionLength(2))) seconds")
                 }
             } compactLeading: {
                 Text("L")
@@ -75,11 +73,11 @@ extension TimerAttributes {
 
 extension TimerAttributes.ContentState {
     fileprivate static var smiley: TimerAttributes.ContentState {
-        TimerAttributes.ContentState(emoji: "😀", timeLeft: 300)
+        TimerAttributes.ContentState(emoji: "😀", timeLeft: 300, endDate: Date().addingTimeInterval(30))
      }
      
      fileprivate static var starEyes: TimerAttributes.ContentState {
-         TimerAttributes.ContentState(emoji: "🤩", timeLeft: 300)
+         TimerAttributes.ContentState(emoji: "🤩", timeLeft: 300, endDate: Date().addingTimeInterval(30))
      }
 }
 

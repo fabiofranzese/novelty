@@ -10,7 +10,7 @@ import SwiftUI
 struct RootRouterView: View {
     @EnvironmentObject var manager: NoveltyManager
     @EnvironmentObject var timeManager: TimeManager
-    
+    @EnvironmentObject var noveltyTimerManager: NoveltyTimerManager
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
@@ -22,6 +22,7 @@ struct RootRouterView: View {
                     if let novelty = manager.todayNovelty {
                         NoveltyRouterView()
                             .environmentObject(manager)
+                            .environmentObject(noveltyTimerManager)
                     } else {
                         Text("No novelty loaded.")
                     }

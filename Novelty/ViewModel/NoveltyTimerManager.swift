@@ -25,7 +25,7 @@ class NoveltyTimerManager: ObservableObject {
     func startLiveActivity() {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
         let attributes = TimerAttributes(novelty: currentNovelty)
-        let contentState = TimerAttributes.ContentState(emoji: "😀", timeLeft: duration)
+        let contentState = TimerAttributes.ContentState(emoji: "😀", timeLeft: duration, endDate: Date().addingTimeInterval(300))
         do {
             activity = try Activity<TimerAttributes>.request(
                 attributes: attributes,
@@ -76,10 +76,11 @@ class NoveltyTimerManager: ObservableObject {
         if let activity = activity {
             let contentState = TimerAttributes.ContentState(
                 emoji: "😀",
-                timeLeft: duration
+                timeLeft: duration,
+                endDate: Date().addingTimeInterval(duration)
             )
             Task {
-                await activity.update(using: contentState)
+                await activity.update(ActivityContent(state: contentState, staleDate: nil))
             }
         }
         if duration <= 0 {

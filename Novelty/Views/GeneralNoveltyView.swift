@@ -32,7 +32,7 @@ struct GeneralNoveltyProposalView: View {
                     print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
                 }.buttonStyle(.borderedProminent)
                 Button("Delay") {
-                    NotificationScheduler.delayNotification()
+                    NotificationManager.delayNotification()
                     print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
                 }.buttonStyle(.borderedProminent)
             }

@@ -9,9 +9,9 @@ import Foundation
 import UserNotifications
 import SwiftUI
 
-class NotificationScheduler {
+class NotificationManager {
     
-    static func scheduleDailyNotification() {
+    func scheduleDailyNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
@@ -37,16 +37,17 @@ class NotificationScheduler {
                 UserDefaults.standard.set(Calendar.current.date(from: dateComponents)?.timeIntervalSince1970, forKey: "NextNoveltyTime")
             }
         }
+
     }
     
-    static func delayNotification() {
+    static func delayNotification(bySeconds interval: TimeInterval = 60) {
         let content = UNMutableNotificationContent()
         content.title = "Your delayed novelty is here"
         content.body = "Tap to view today's challenge."
         content.sound = .default
         
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
         
         let request = UNNotificationRequest(
             identifier: "dailyNovelty",
@@ -58,8 +59,8 @@ class NotificationScheduler {
             if let error = error {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
-                print("Scheduled notification in 10 minutes")
-                UserDefaults.standard.set(Date().addingTimeInterval(60).timeIntervalSince1970, forKey: "NextNoveltyTime")
+                print("Scheduled notification in \(interval) seconds")
+                UserDefaults.standard.set(Date().addingTimeInterval(interval).timeIntervalSince1970, forKey: "NextNoveltyTime")
             }
         }
     }

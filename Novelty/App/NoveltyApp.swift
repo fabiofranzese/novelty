@@ -11,6 +11,7 @@ import SwiftUI
 struct contemplativeApp: App {
     @StateObject var manager = NoveltyManager()
     @StateObject var timeManager = TimeManager()
+    @StateObject var noveltyTimerManager = NoveltyTimerManager()
     @State private var currentTime = Date()
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
@@ -21,6 +22,7 @@ struct contemplativeApp: App {
             RootRouterView()
                 .environmentObject(manager)
                 .environmentObject(timeManager)
+                .environmentObject(noveltyTimerManager)
         }
     }
 }

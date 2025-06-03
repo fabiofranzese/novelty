@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoveltyRouterView: View {
     @EnvironmentObject var manager : NoveltyManager
-    @State private var noveltyTimerManager = NoveltyTimerManager()
+    @EnvironmentObject private var noveltyTimerManager: NoveltyTimerManager
     @AppStorage("CurrentNoveltyStatus") var CurrentNoveltyStatus: NoveltyStatus = .proposed
     
     var body: some View {
