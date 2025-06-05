@@ -39,12 +39,6 @@ struct TimerLiveActivity: Widget {
                     Text("Novelty: \(context.attributes.novelty?.title ?? "Unknown Novelty")")
                         .font(.headline)
                 }
-                DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
-                }
                 DynamicIslandExpandedRegion(.bottom) {
                     Text("Novelty: \(context.attributes.novelty?.description ?? "Unknown Novelty")")
                         .font(.headline)

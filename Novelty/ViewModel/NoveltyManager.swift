@@ -70,6 +70,15 @@ class NoveltyManager: ObservableObject {
         NotificationManager().scheduleDailyNotification()
     }
     
+    func refreshNovelty() {
+        var novelty = allNovelties.randomElement()!
+        novelty.createdAt = Date()
+        novelty.status = .proposed
+        CurrentNoveltyStatus = .proposed
+        todayNovelty = novelty
+        NextNoveltyId = novelty.id
+    }
+    
         func acceptTodayNovelty() {
             todayNovelty?.status = .accepted
             CurrentNoveltyStatus = .accepted
