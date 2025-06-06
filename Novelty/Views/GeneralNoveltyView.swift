@@ -20,17 +20,17 @@ struct GeneralNoveltyProposalView: View {
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
         NavigationStack {
-            
             Text("General Novelty")
             Text(manager.todayNovelty?.title ?? "No Novelty")
             UIKitInteractionView(
                 onAccept: {noveltyTimerManager.currentNovelty = manager.todayNovelty
                     noveltyTimerManager.startLiveActivity()
                     manager.acceptTodayNovelty()
+                    noveltyTimerManager.totalDuration = manager.todayNovelty?.duration ?? 240
                     print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
                 },
                 onRefresh: {
-                    manager.refreshNovelty()
+                    manager.refreshNovelty(duration: manager.todayNovelty?.duration ?? 240)
                     print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
                 },
                 onDiscard: {

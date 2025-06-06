@@ -33,7 +33,11 @@ struct NoveltyRouterView: View {
                     .environmentObject(noveltyTimerManager)
             default:
                 let status = manager.todayNovelty?.status
-                if status == .proposed {
+                if status == .asking {
+                    NoveltyAskingView()
+                        .environmentObject(manager)
+                        .environmentObject(noveltyTimerManager)
+                } else if status == .proposed {
                     GeneralNoveltyProposalView()
                         .environmentObject(manager)
                         .environmentObject(noveltyTimerManager)

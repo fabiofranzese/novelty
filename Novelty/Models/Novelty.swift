@@ -11,6 +11,7 @@ enum NoveltyCategory: String, Codable {
 }
 
 enum NoveltyStatus: String, Codable {
+    case asking
     case proposed
     case accepted
     case completed
@@ -24,6 +25,7 @@ struct Novelty: Identifiable, Codable {
     let title: String
     let description: String
     let category: NoveltyCategory
+    var duration: TimeInterval?
     var status: NoveltyStatus?
     var createdAt: Date?
 }
