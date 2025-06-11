@@ -18,24 +18,23 @@ struct OnboardingView: View {
     var body: some View {
         VStack(spacing: 24) {
             Text("Welcome to Novelty")
-                .font(.largeTitle)
-                .bold()
+                .font(.extrabold(size: 40))
+                .multilineTextAlignment(.leading)
             
             Text("Each day you'll receive a small disruption to your routine — a fun and mindful challenge.")
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
+                .font(.regular(size: 20))
             
-            Button("Enable Notifications") {
-                requestNotificationPermission()
-            }
+            Button(action: {requestNotificationPermission()}) {Text("Enable Notification").font(.italic(size: 20))
+                .multilineTextAlignment(.leading)}
             
-            Button("Get Started") {
-                onboarding = true
+            Button(action: {onboarding = true
                 manager.proposeNewNovelty()
                 print(onboarding)
                 print(manager.todayNovelty?.title, manager.todayNovelty?.id)
                 print("Current time: \(timeManager.currentTime.timeIntervalSince1970)")
-            }
-            .buttonStyle(.borderedProminent)
+            }) {Text("Get Started").font(.italic(size: 20))
+                .multilineTextAlignment(.leading)}
         }
         .padding()
         .onAppear {

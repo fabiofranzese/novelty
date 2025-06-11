@@ -17,12 +17,12 @@ struct MidNoveltyView: View {
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
         NavigationStack {
-            
-            Text("General Novelty")
-            Text(manager.todayNovelty?.title ?? "No Novelty")
+            Text(noveltyTimerManager.duration.format(using: [.minute, .second]))
+                .font(.extrabold(size: 40))
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.white)
             VStack {
-                Text("Accepted")
-                ProgressView(value: noveltyTimerManager.progress)
+                    ProgressView(value: noveltyTimerManager.progress)
                     .progressViewStyle(LinearProgressViewStyle())
                     .padding()
                 
@@ -34,14 +34,10 @@ struct MidNoveltyView: View {
                     .buttonStyle(.borderedProminent)
                 }
             }
-            
-            Button("Reset") {
-                onboarding = false
-                NextNoveltyId = ""
-                NextNoveltyTime = Double.infinity
-            }
-            .buttonStyle(.borderedProminent)
-        }.onAppear {
+        }
+        .padding(.horizontal, 20)
+        .padding(.trailing, 50)
+        .onAppear {
             noveltytime = NextNoveltyTime
         }
         .onChange(of: NextNoveltyTime) { newValue in

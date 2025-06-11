@@ -18,26 +18,33 @@ struct GeneralNoveltyProposalView: View {
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
+    
     var body: some View {
         NavigationStack {
-            Text("General Novelty")
-            Text(manager.todayNovelty?.title ?? "No Novelty")
-            UIKitInteractionView(
-                onAccept: {noveltyTimerManager.currentNovelty = manager.todayNovelty
-                    noveltyTimerManager.startLiveActivity()
-                    manager.acceptTodayNovelty()
-                    noveltyTimerManager.totalDuration = manager.todayNovelty?.duration ?? 240
-                    print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
-                },
-                onRefresh: {
-                    manager.refreshNovelty(duration: manager.todayNovelty?.duration ?? 240)
-                    print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
-                },
-                onDiscard: {
-                    manager.discardTodayNovelty()
-                    print("Novelty Discarded", NextNoveltyTime, NextNoveltyId)
-                }
-            )
+            ZStack{
+                Text(manager.todayNovelty?.description ?? "No Novelty")
+                    .font(.extrabold(size: 40))
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.trailing, 50)
+                UIKitInteractionView(
+                    onAccept: {noveltyTimerManager.currentNovelty = manager.todayNovelty
+                        noveltyTimerManager.startLiveActivity()
+                        manager.acceptTodayNovelty()
+                        noveltyTimerManager.totalDuration = manager.todayNovelty?.duration ?? 240
+                        print("Novelty accepted and done", NextNoveltyTime, NextNoveltyId)
+                    },
+                    onRefresh: {
+                        manager.refreshNovelty(duration: manager.todayNovelty?.duration ?? 240)
+                        print("Notification Delayed", NextNoveltyTime, NextNoveltyId)
+                    },
+                    onDiscard: {
+                        manager.discardTodayNovelty()
+                        print("Novelty Discarded", NextNoveltyTime, NextNoveltyId)
+                    }
+                )
+            }
         }.onAppear {
             noveltytime = NextNoveltyTime
         }
@@ -72,7 +79,7 @@ class InteractionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         
         drawingView.frame = view.bounds
         drawingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -149,7 +156,7 @@ class InteractionViewController: UIViewController {
             return
         }
         
-        context.setFillColor(UIColor.white.cgColor)
+        context.setFillColor(UIColor.black.cgColor)
         context.fill(rect)
         
         drawingView.layer.render(in: context)
@@ -164,7 +171,7 @@ class InteractionViewController: UIViewController {
             return
         }
         
-        let threshold: UInt8 = 20
+        let tolerance: UInt8 = 20
         for y in 0 ..< height {
             let rowStart = y * bytesPerRow
             for x in 0 ..< width {
@@ -174,7 +181,7 @@ class InteractionViewController: UIViewController {
                 let b = ptr[idx + 2]   // Blue
                 let a = ptr[idx + 3]   // Alpha
 
-                if a == 255 && (r > threshold || g > threshold || b > threshold) {
+                if a == 255 && (r < 255 - tolerance || g < 255 - tolerance || b < 255 - tolerance) {
                     return
                 }
             }
@@ -234,7 +241,7 @@ class DrawingView: UIView {
     
     private func commonInit() {
         // Configuro il layer che disegnerà i tratti neri
-        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.fillColor = nil
         shapeLayer.lineWidth = lineWidth
         shapeLayer.lineCap = .round
@@ -266,10 +273,11 @@ class DrawingView: UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Segnalo al delegate che uno stroke è terminato
         delegate?.drawingViewDidFinishStroke(self)
+        clearCanvas()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.drawingViewDidFinishStroke(self)
+        clearCanvas()
     }
 }
-

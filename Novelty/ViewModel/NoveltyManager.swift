@@ -18,6 +18,20 @@ class NoveltyManager: ObservableObject {
             .urls(for: .documentDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("novelty_history.json")
     
+    let hexColors: [String] = [
+        "FF383C", "FF4245", "E9152D", "FF6165",
+        "FF8D28", "FF922E", "C55300", "FFA056",
+        "FFCC00", "FFD600", "A16A00", "FEDF43",
+        "34C759", "30D158", "008932", "4AD968",
+        "C8C8B3", "00DAC3", "008579", "54DFCB",
+        "00C3D0", "00D2E0", "008198", "3BDBEC",
+        "00C0E8", "3CD3FE", "007EAE", "6DF9FF",
+        "0088FF", "0091FF", "1E6EF4", "5CB8FF",
+        "6155F5", "6B5DFF", "564ADE", "A7BEFF",
+        "CB30E0", "DB34F2", "B02FC2", "EA93FF",
+        "FF2D55", "FF375F", "E7124D", "FF8AC4"
+    ]
+    
     init() {
         loadNovelties()
         loadHistory()
@@ -58,6 +72,7 @@ class NoveltyManager: ObservableObject {
         private func loadTodayNovelty() {
             self.todayNovelty = allNovelties.first {$0.id == NextNoveltyId}
             self.todayNovelty?.status = CurrentNoveltyStatus
+            self.todayNovelty?.colors = Array(hexColors.shuffled().prefix(4))
         }
 
     func proposeNewNovelty() {
@@ -65,6 +80,8 @@ class NoveltyManager: ObservableObject {
         novelty.createdAt = Date()
         novelty.status = .asking
         novelty.duration = TimeInterval.random(in: 120...300)
+        novelty.colors = Array(hexColors.shuffled().prefix(4))
+        print(novelty.colors?.description ?? "No colors available")
         CurrentNoveltyStatus = .asking
         todayNovelty = novelty
         NextNoveltyId = novelty.id
@@ -76,6 +93,8 @@ class NoveltyManager: ObservableObject {
         novelty.createdAt = Date()
         novelty.status = .proposed
         novelty.duration = duration
+        novelty.colors = Array(hexColors.shuffled().prefix(4))
+        print(novelty.colors?.description ?? "No colors available")
         CurrentNoveltyStatus = .proposed
         todayNovelty = novelty
         NextNoveltyId = novelty.id

@@ -55,6 +55,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Models/Novelty.swift,
+				Resources/AlbertSans.ttf,
 				ViewModel/NoveltyTimerManager.swift,
 			);
 			target = E552A81D2DE7531D0033ADED /* TimerExtension */;
@@ -66,12 +67,20 @@
 			);
 			target = E51A874B2DDDBEB3002D144A /* Novelty */;
 		};
+		E581D6152DF9865800274A62 /* Exceptions for "Novelty" folder in "Novelty" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E51A874B2DDDBEB3002D144A /* Novelty */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E51A874E2DDDBEB3002D144A /* Novelty */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				E581D6152DF9865800274A62 /* Exceptions for "Novelty" folder in "Novelty" target */,
 				E552A8372DE753760033ADED /* Exceptions for "Novelty" folder in "TimerExtension" target */,
 			);
 			path = Novelty;
@@ -396,6 +405,7 @@
 				DEVELOPMENT_TEAM = 3A97D54DHC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Novelty/Info.plist;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -427,6 +437,7 @@
 				DEVELOPMENT_TEAM = 3A97D54DHC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Novelty/Info.plist;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

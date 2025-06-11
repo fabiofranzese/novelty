@@ -16,8 +16,11 @@ struct NoveltyAskingView: View {
     var body: some View {
         VStack {
             Text("Do you have \(manager.todayNovelty?.duration!.format(using: [.minute, .second]) ?? "dontknow")?")
-                .font(.largeTitle)
-                .padding()
+                .font(.extrabold(size: 40))
+                .frame(alignment: .leading)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+                .padding(.trailing, 60)
             
             Button("Yes") {
                 manager.proposeTodayNovelty()
@@ -27,7 +30,6 @@ struct NoveltyAskingView: View {
                 manager.todayNovelty?.duration = TimeInterval.random(in: 120...300)
             }
         }
-        .padding()
     }
     
     func randomtime() -> TimeInterval {

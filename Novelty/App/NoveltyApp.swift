@@ -27,3 +27,17 @@ struct contemplativeApp: App {
     }
 }
 
+extension Font {
+    static func extrabold(size: CGFloat) -> Font {
+        return .custom("AlbertSansRoman-ExtraBold", size: size)
+    }
+    static func italic(size: CGFloat) -> Font {
+        return .custom("AlbertSansRoman-Light", size: size)
+    }
+    static func regular(size: CGFloat) -> Font {
+        return .custom("AlbertSansRoman-Regular", size: size)
+    }
+    static func bold(size: CGFloat) -> Font {
+        return .custom("AlbertSansRoman-Bold", size: size)
+    }
+}

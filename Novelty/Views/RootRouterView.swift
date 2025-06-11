@@ -32,7 +32,7 @@ struct RootRouterView: View {
                         .environmentObject(timeManager)
                 }
             } else {
-                OnboardingView()
+                Onboarding()
                     .environmentObject(manager)
                     .environmentObject(timeManager)
             }

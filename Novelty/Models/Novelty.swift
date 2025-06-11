@@ -28,4 +28,5 @@ struct Novelty: Identifiable, Codable {
     var duration: TimeInterval?
     var status: NoveltyStatus?
     var createdAt: Date?
+    var colors: [String]?
 }
