@@ -11,6 +11,7 @@ class NoveltyManager: ObservableObject {
     @Published var todayNovelty: Novelty?
     @Published var history: [Novelty] = []
     private(set) var allNovelties: [Novelty] = []
+    private(set) var allFeedbacks: [Feedback] = []
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("CurrentNoveltyStatus") var CurrentNoveltyStatus: NoveltyStatus = .proposed
     
@@ -34,6 +35,7 @@ class NoveltyManager: ObservableObject {
     
     init() {
         loadNovelties()
+        loadFeedbacks()
         loadHistory()
         loadTodayNovelty()
     }
@@ -52,6 +54,22 @@ class NoveltyManager: ObservableObject {
                 print("Failed to decode novelties.json: \(error)")
             }
         print(self.allNovelties.first!.title)
+        }
+    
+    private func loadFeedbacks() {
+        guard let url = Bundle.main.url(forResource: "feedbacks", withExtension: "json") else {
+                print("Error: feedbacks.json not found in bundle.")
+                return
+            }
+            do {
+                let data = try Data(contentsOf: url)
+                let decodedFeedbacks = try JSONDecoder().decode([Feedback].self, from: data)
+                self.allFeedbacks = decodedFeedbacks
+                print("Loaded \(decodedFeedbacks.count) feedbacks from feedbacks.json")
+            } catch {
+                print("Failed to decode feedbacks.json: \(error)")
+            }
+        print(self.allFeedbacks.first!.feedbackquestion)
         }
 
         private func loadHistory() {
@@ -73,6 +91,8 @@ class NoveltyManager: ObservableObject {
             self.todayNovelty = allNovelties.first {$0.id == NextNoveltyId}
             self.todayNovelty?.status = CurrentNoveltyStatus
             self.todayNovelty?.colors = Array(hexColors.shuffled().prefix(4))
+            self.todayNovelty?.duration = TimeInterval.random(in: 120...300)
+            self.todayNovelty?.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
         }
 
     func proposeNewNovelty() {
@@ -81,6 +101,7 @@ class NoveltyManager: ObservableObject {
         novelty.status = .asking
         novelty.duration = TimeInterval.random(in: 120...300)
         novelty.colors = Array(hexColors.shuffled().prefix(4))
+        novelty.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
         print(novelty.colors?.description ?? "No colors available")
         CurrentNoveltyStatus = .asking
         todayNovelty = novelty
@@ -94,6 +115,7 @@ class NoveltyManager: ObservableObject {
         novelty.status = .proposed
         novelty.duration = duration
         novelty.colors = Array(hexColors.shuffled().prefix(4))
+        novelty.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
         print(novelty.colors?.description ?? "No colors available")
         CurrentNoveltyStatus = .proposed
         todayNovelty = novelty
@@ -122,6 +144,7 @@ class NoveltyManager: ObservableObject {
         func doTodayNoveltyFeedback() {
             todayNovelty?.status = .completed
             CurrentNoveltyStatus = .completed
+            print(todayNovelty?.description)
             history.append(todayNovelty!)
             saveHistory()
             proposeNewNovelty()

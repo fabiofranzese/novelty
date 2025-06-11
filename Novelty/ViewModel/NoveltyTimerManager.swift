@@ -52,7 +52,7 @@ class NoveltyTimerManager: ObservableObject {
         stopTimer()
         startDate = Date()
         isTimerRunning = true
-        timerPublisher = Timer.publish(every: 0.1, on: .main, in: .common)
+        timerPublisher = Timer.publish(every: 0.5, on: .main, in: .common)
         timerCancellable = timerPublisher?
             .autoconnect()
             .sink { [weak self] _ in

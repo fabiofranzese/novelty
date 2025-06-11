@@ -23,6 +23,8 @@ struct RootRouterView: View {
                         NoveltyRouterView()
                             .environmentObject(manager)
                             .environmentObject(noveltyTimerManager)
+                            .animation(.easeOut(duration: 0.5), value: timeManager.currentTime >= Date(timeIntervalSince1970: NextNoveltyTime))
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
                     } else {
                         Text("No novelty loaded.")
                     }
@@ -30,11 +32,14 @@ struct RootRouterView: View {
                     MainView()
                         .environmentObject(manager)
                         .environmentObject(timeManager)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             } else {
                 Onboarding()
                     .environmentObject(manager)
                     .environmentObject(timeManager)
+                    .animation(.easeOut(duration: 0.5), value: onboarding)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
     }

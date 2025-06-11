@@ -17,22 +17,19 @@ struct MidNoveltyView: View {
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
         NavigationStack {
-            Text(noveltyTimerManager.duration.format(using: [.minute, .second]))
-                .font(.extrabold(size: 40))
-                .multilineTextAlignment(.leading)
-                .foregroundStyle(.white)
+            VStack(alignment: .leading, spacing: 16) {
+                Text(noveltyTimerManager.duration.format(using: [.minute, .second]))
+                    .font(.extrabold(size: 40))
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(.white)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 30)
+            .padding(.trailing, 40)
             VStack {
                     ProgressView(value: noveltyTimerManager.progress)
                     .progressViewStyle(LinearProgressViewStyle())
                     .padding()
-                
-                if !noveltyTimerManager.isTimerRunning{
-                    Button("Feedback") {
-                        manager.doTodayNovelty()
-                        noveltyTimerManager.endLiveActivity()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
             }
         }
         .padding(.horizontal, 20)
@@ -42,6 +39,12 @@ struct MidNoveltyView: View {
         }
         .onChange(of: NextNoveltyTime) { newValue in
             noveltytime = newValue
+        }
+        .onChange(of: noveltyTimerManager.isTimerRunning) { newValue in
+            if !newValue {
+                manager.doTodayNovelty()
+                noveltyTimerManager.endLiveActivity()
+            }
         }
     }
 }

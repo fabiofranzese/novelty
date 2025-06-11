@@ -1,26 +1,171 @@
 [
   {
-    "id": "S001",
-    "title": "Color Hunt Walk",
-    "description": "d.",
-    "category": "sensory"
+    "id": "002",
+    "title": "continue with your eyes closed",
+    "description": "trust your memory or touch",
+    "category": "none"
   },
   {
-    "id": "M001",
-    "title": "Move in slow motion",
-    "description": "For 5 minutes, do everything in exaggerated slow motion.",
-    "category": "motor"
+    "id": "003",
+    "title": "if possible, continue in copmlete silence",
+    "description": "turn off all sounds",
+    "category": "none"
   },
   {
-    "id": "D001",
-    "title": "Digital detox",
-    "description": "Turn off your phone screen for 10 minutes. Just sit or walk around.",
-    "category": "digital"
+    "id": "004",
+    "title": "carefully touch every object before using it",
+    "description": "feelings before functions",
+    "category": "none"
   },
   {
-    "id": "C001",
-    "title": "Speak your thoughts",
-    "description": "Narrate your thoughts aloud for a few minutes while doing a task.",
-    "category": "cognitive"
+    "id": "005",
+    "title": "describe what you see out loud before acting",
+    "description": "activate narration",
+    "category": "none"
+  },
+  {
+    "id": "006",
+    "title": "focus on peripheral vision",
+    "description": "notice the edge of your sight?",
+    "category": "none"
+  },
+  {
+    "id": "007",
+    "title": "turn off the lights",
+    "description": "work in dimness or shadow",
+    "category": "none"
+  },
+  {
+    "id": "008",
+    "title": "cover your ears",
+    "description": "notice body sounds",
+    "category": "none"
+  },
+  {
+    "id": "009",
+    "title": "gently trace the textures of everything you touch",
+    "description": "read the surface",
+    "category": "none"
+  },
+  {
+    "id": "010",
+    "title": "observe shadows not objects",
+    "description": "follow the silhouettes",
+    "category": "none"
+  },
+  {
+    "id": "011",
+    "title": "write a to-do list for a tree",
+    "description": "think in rings",
+    "category": "none"
+  },
+  {
+    "id": "012",
+    "title": "pick an object you normally ignore and stare at it",
+    "description": "spotlight the overlooked",
+    "category": "none"
+  },
+  {
+    "id": "013",
+    "title": "pretend everything around you is fragile",
+    "description": "handle with care",
+    "category": "none"
+  },
+  {
+    "id": "014",
+    "title": "notice every point of contact of your body",
+    "description": "stay aware of touch",
+    "category": "none"
+  },
+  {
+    "id": "015",
+    "title": "observe what moves and what stays still",
+    "description": "sense motion and pause",
+    "category": "none"
+  },
+  {
+    "id": "016",
+    "title": "smell some nearby objects",
+    "description": "look for funky scents",
+    "category": "none"
+  },
+  {
+    "id": "017",
+    "title": "continue with your non-dominant hand",
+    "description": "let the rookie lead",
+    "category": "none"
+  },
+  {
+    "id": "018",
+    "title": "use only the knuckles of your hand",
+    "description": "flip your grip",
+    "category": "none"
+  },
+  {
+    "id": "019",
+    "title": "move in slow-motion",
+    "description": "feel each movement as if was the first time",
+    "category": "none"
+  },
+  {
+    "id": "020",
+    "title": "keep doing what you were doing while standing up",
+    "description": "shift your perspective and posture",
+    "category": "none"
+  },
+  {
+    "id": "021",
+    "title": "keep doing what you were doing while sitting on the floor",
+    "description": "ground your actions",
+    "category": "none"
+  },
+  {
+    "id": "022",
+    "title": "use both hands simultaneously",
+    "description": "even for one-handed tasks.",
+    "category": "none"
+  },
+  {
+    "id": "023",
+    "title": "exaggerate every movement",
+    "description": "supersize each motion",
+    "category": "none"
+  },
+  {
+    "id": "024",
+    "title": "balance on one leg while continuing",
+    "description": "enter flamingo mode",
+    "category": "none"
+  },
+  {
+    "id": "025",
+    "title": "alternate hands every 10 seconds",
+    "description": "ping-pong the task",
+    "category": "none"
+  },
+  {
+    "id": "026",
+    "title": "perform the task using the back of your hand where possible",
+    "description": "invite the unfamiliar side of touch",
+    "category": "none"
+  },
+  {
+    "id": "027",
+    "title": "sit in a spot you've never used before",
+    "description": "welcome new angles",
+    "category": "none"
+  },
+  {
+    "id": "028",
+    "title": "just lie down and stare at the ceiling",
+    "description": "let ideas drift by",
+    "category": "none"
+  },
+  {
+    "id": "029",
+    "title": "try not to touch anything with your dominant hand",
+    "description": "bench the star hand",
+    "category": "none"
   }
 ]
+

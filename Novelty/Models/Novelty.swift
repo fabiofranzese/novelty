@@ -6,9 +6,6 @@
 //
 import Foundation
 
-enum NoveltyCategory: String, Codable {
-    case sensory, motor, digital, cognitive
-}
 
 enum NoveltyStatus: String, Codable {
     case asking
@@ -24,9 +21,16 @@ struct Novelty: Identifiable, Codable {
     let id: String
     let title: String
     let description: String
-    let category: NoveltyCategory
+    let category: String
     var duration: TimeInterval?
     var status: NoveltyStatus?
     var createdAt: Date?
     var colors: [String]?
+    var feedback: Feedback?
+}
+
+struct Feedback: Identifiable, Codable {
+    let id: String
+    let feedbackquestion: String
+    var feedbackanswer: String?
 }

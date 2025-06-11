@@ -21,7 +21,7 @@ struct NoveltyRouterView: View {
                                color4: Color(hex: manager.todayNovelty?.colors?[3] ?? "000000"))
                     .ignoresSafeArea()
                 Group {
-                    switch manager.todayNovelty?.category.rawValue ?? "unknown" {
+                    switch manager.todayNovelty?.category ?? "unknown" {
                     case "s", "m", "c", "d":
                         GeneralNoveltyProposalView()
                             .environmentObject(manager)
@@ -33,22 +33,26 @@ struct NoveltyRouterView: View {
                             NoveltyAskingView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .transition(.opacity)
+                                .animation(.easeOut(duration: 0.5), value: status)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else if status == .proposed {
                             GeneralNoveltyProposalView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .transition(.opacity)
+                                .animation(.easeOut(duration: 0.5), value: status)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else if status == .accepted{
                             MidNoveltyView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .transition(.opacity)
+                                .animation(.easeOut(duration: 0.5), value: status)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else if status == .feedback {
-                            Button("Do Feedback"){
-                                manager.doTodayNoveltyFeedback()
-                                // Manage end of live activity
-                            }
+                            FeedbackView()
+                                .environmentObject(manager)
+                                .environmentObject(noveltyTimerManager)
+                                .animation(.easeOut(duration: 0.5), value: status)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else {
                             Text("\(manager.todayNovelty?.status?.rawValue), \(manager.todayNovelty?.title)")
                         }

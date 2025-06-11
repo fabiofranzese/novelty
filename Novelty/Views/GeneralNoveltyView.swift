@@ -22,12 +22,22 @@ struct GeneralNoveltyProposalView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                Text(manager.todayNovelty?.description ?? "No Novelty")
-                    .font(.extrabold(size: 40))
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.trailing, 50)
+                VStack(alignment: .leading) {
+                    Text("\(manager.todayNovelty?.title ?? "No Novelty")")
+                        .font(.extrabold(size: 40))
+                        .frame(alignment: .leading)
+                        .foregroundStyle(.white)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .padding(.bottom, 15)
+                    Text("\(manager.todayNovelty?.description ?? "No Novelty")")
+                        .font(.italic(size: 25))
+                        .frame(alignment: .leading)
+                        .foregroundStyle(.white)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 30)
+                .padding(.trailing, 40)
                 UIKitInteractionView(
                     onAccept: {noveltyTimerManager.currentNovelty = manager.todayNovelty
                         noveltyTimerManager.startLiveActivity()
@@ -121,6 +131,7 @@ class InteractionViewController: UIViewController {
     @objc private func proximityChanged(notification: Notification) {
             // If the device is “near” (i.e. user covered it), call discard:
             if UIDevice.current.proximityState {
+                UIDevice.current.isProximityMonitoringEnabled = false
                 onDiscard?()
                 
                 // Immediately disable monitoring so the next time you re-enable

@@ -64,7 +64,8 @@ struct Onboarding: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
+            .padding(.horizontal, 30)
+            .padding(.trailing, 40)
             
             VStack{
                 Spacer()
