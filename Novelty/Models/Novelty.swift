@@ -5,6 +5,7 @@
 //  Created by Fabio on 21/05/25.
 //
 import Foundation
+import SwiftUI
 
 
 enum NoveltyStatus: String, Codable {
@@ -18,7 +19,7 @@ enum NoveltyStatus: String, Codable {
 }
 
 struct Novelty: Identifiable, Codable {
-    let id: String
+    var id: String
     let title: String
     let description: String
     let category: String
@@ -33,4 +34,10 @@ struct Feedback: Identifiable, Codable {
     let id: String
     let feedbackquestion: String
     var feedbackanswer: String?
+}
+
+extension AnyTransition {
+    static var easeInOutTransition: AnyTransition {
+        .opacity.combined(with: .scale(scale: 1.0)).animation(.easeInOut(duration: 0.5))
+    }
 }

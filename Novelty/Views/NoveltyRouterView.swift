@@ -33,26 +33,22 @@ struct NoveltyRouterView: View {
                             NoveltyAskingView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .animation(.easeOut(duration: 0.5), value: status)
-                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                                .transition(.easeInOutTransition).ignoresSafeArea()
                         } else if status == .proposed {
                             GeneralNoveltyProposalView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .animation(.easeOut(duration: 0.5), value: status)
-                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                                .transition(.easeInOutTransition).ignoresSafeArea()
                         } else if status == .accepted{
                             MidNoveltyView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .animation(.easeOut(duration: 0.5), value: status)
-                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                                .transition(.easeInOutTransition).ignoresSafeArea()
                         } else if status == .feedback {
                             FeedbackView()
                                 .environmentObject(manager)
                                 .environmentObject(noveltyTimerManager)
-                                .animation(.easeOut(duration: 0.5), value: status)
-                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                                .transition(.easeInOutTransition).ignoresSafeArea()
                         } else {
                             Text("\(manager.todayNovelty?.status?.rawValue), \(manager.todayNovelty?.title)")
                         }
