@@ -18,7 +18,7 @@ struct contemplativeApp: App {
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     @AppStorage("CurrentNoveltyStatus") var CurrentNoveltyStatus: NoveltyStatus = .proposed
     @AppStorage("id") var id: String = "1"
-    @AppStorage("StartDate") var StartDate: TimeInterval = Date(timeIntervalSinceNow: -86400*10).timeIntervalSince1970
+    @AppStorage("StartDate") var StartDate: TimeInterval = 1749609661
     var body: some Scene {
         WindowGroup {
             RootRouterView()

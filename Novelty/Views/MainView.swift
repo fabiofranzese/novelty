@@ -13,7 +13,7 @@ struct MainView: View {
     @AppStorage("onboarding") var onboarding: Bool = false
     @AppStorage("NextNoveltyId") var NextNoveltyId: String = ""
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
-    @AppStorage("StartDate") var StartDate: TimeInterval = Date(timeIntervalSinceNow: -86400*10).timeIntervalSince1970
+    @AppStorage("StartDate") var StartDate: TimeInterval = 1749609661
     @State private var id = "1"
     var body: some View {
         NavigationStack{

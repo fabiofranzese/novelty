@@ -29,7 +29,7 @@ struct NoveltyAskingView: View {
                     manager.proposeTodayNovelty()
                 },
                 onRefresh: {
-                    NotificationManager.delayNotification(bySeconds: 120)
+                    NotificationManager.delayNotification()
                     manager.todayNovelty?.duration = TimeInterval.random(in: 120...300)
                 },
                 onDiscard: {

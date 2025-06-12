@@ -42,14 +42,14 @@ class NotificationManager {
 
     }
     
-    static func delayNotification(bySeconds interval: TimeInterval = 60) {
+    static func delayNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Your delayed novelty is here"
         content.body = "Tap to view today's challenge."
         content.sound = .default
-        
+        var seconds = Double.random(in: 0...self.secondsUntil0PM())
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
         
         let request = UNNotificationRequest(
             identifier: "dailyNovelty",
@@ -61,9 +61,26 @@ class NotificationManager {
             if let error = error {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
-                print("Scheduled notification in \(interval) seconds")
-                UserDefaults.standard.set(Date().addingTimeInterval(interval).timeIntervalSince1970, forKey: "NextNoveltyTime")
+                print("Scheduled notification in \(seconds) seconds")
+                UserDefaults.standard.set(Date().addingTimeInterval(seconds).timeIntervalSince1970, forKey: "NextNoveltyTime")
             }
+        }
+    }
+    static func secondsUntil0PM() -> TimeInterval {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        // Create today's 10:00 PM
+        var components = calendar.dateComponents([.year, .month, .day], from: now)
+        components.hour = 22
+        components.minute = 0
+        components.second = 0
+        
+        if let elevenPM = calendar.date(from: components) {
+            let seconds = Double(elevenPM.timeIntervalSince(now))
+            return max(0, seconds) // avoid negatives after 10 PM
+        } else {
+            return 0
         }
     }
 }
