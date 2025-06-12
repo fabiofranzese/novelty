@@ -93,7 +93,7 @@ class NoveltyManager: ObservableObject {
             self.todayNovelty = allNovelties.first {$0.id == NextNoveltyId}
             self.todayNovelty?.status = CurrentNoveltyStatus
             self.todayNovelty?.colors = Array(hexColors.shuffled().prefix(4))
-            self.todayNovelty?.duration = TimeInterval.random(in: 3...6)
+            self.todayNovelty?.duration = TimeInterval.random(in: 120...300)
             self.todayNovelty?.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
             print("id:", id)
         }
@@ -101,22 +101,20 @@ class NoveltyManager: ObservableObject {
     func proposeNewNovelty() {
         var novelty = allNovelties.randomElement()!
         novelty.status = .asking
-        //novelty.duration = TimeInterval.random(in: 120...300)
-        novelty.duration = TimeInterval.random(in: 3...6)
+        novelty.duration = TimeInterval.random(in: 120...300)
         novelty.colors = Array(hexColors.shuffled().prefix(4))
         novelty.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
         print(novelty.colors?.description ?? "No colors available")
         CurrentNoveltyStatus = .asking
         todayNovelty = novelty
         NextNoveltyId = novelty.id
-        NotificationManager().scheduleDailyNotification()
+        NotificationManager.scheduleDailyNotification()
     }
     
     func refreshNovelty(duration: TimeInterval) {
         var novelty = allNovelties.randomElement()!
         novelty.status = .proposed
-        //novelty.duration = duration
-        novelty.duration = TimeInterval.random(in: 3...6)
+        novelty.duration = duration
         novelty.colors = Array(hexColors.shuffled().prefix(4))
         novelty.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
         print(novelty.colors?.description ?? "No colors available")

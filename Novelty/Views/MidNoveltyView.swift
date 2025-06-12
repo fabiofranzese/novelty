@@ -17,25 +17,27 @@ struct MidNoveltyView: View {
     @AppStorage("NextNoveltyTime") var NextNoveltyTime: Double = Double.infinity
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(noveltyTimerManager.duration.format(using: [.minute, .second]))
-                    .font(.extrabold(size: 40))
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(.white)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 30)
-            .padding(.trailing, 40)
-            VStack {
-                    ProgressView(value: noveltyTimerManager.progress)
-                    .progressViewStyle(LinearProgressViewStyle())
-                    .padding()
+            ZStack {
+                Circle()
+                    .stroke(lineWidth: 30)
+                    .opacity(0.3)
+                    .foregroundColor(.gray)
+                    .frame(width: 300, height: 300)
+                
+                Circle()
+                    .trim(from: 0, to: CGFloat(noveltyTimerManager.progress))
+                    .stroke(style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                    .rotationEffect(.degrees(-90))
+                    .foregroundColor(Color.purple.opacity(0.8))
+                    .frame(width: 300, height: 300)
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.trailing, 50)
         .onAppear {
             noveltytime = NextNoveltyTime
+            if !noveltyTimerManager.isTimerRunning{
+                manager.doTodayNovelty()
+                noveltyTimerManager.endLiveActivity()
+            }
         }
         .onChange(of: NextNoveltyTime) { newValue in
             noveltytime = newValue

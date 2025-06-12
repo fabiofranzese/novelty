@@ -20,7 +20,7 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 16) {
                 ScrollView{
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("novelties history")
+                        Text("inner archive")
                             .font(.extrabold(size: 40))
                             .multilineTextAlignment(.leading)
                             .foregroundStyle(.purple)
@@ -54,7 +54,7 @@ struct MainView: View {
                                     }
                                 } else {
                                     Circle()
-                                        .fill(Color.gray)
+                                        .fill(Color.gray.opacity(0))
                                         .frame(width: 48, height: 48)
                                 }
                             }

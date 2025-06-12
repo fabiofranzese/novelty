@@ -23,15 +23,15 @@ class NoveltyTimerManager: ObservableObject {
     
 
     func startLiveActivity() {
-        guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
-        let attributes = TimerAttributes(novelty: currentNovelty)
-        let contentState = TimerAttributes.ContentState(emoji: "😀", timeLeft: duration, endDate: Date().addingTimeInterval(300))
+        //guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
+        //let attributes = TimerAttributes(novelty: currentNovelty)
+        //let contentState = TimerAttributes.ContentState(emoji: "😀", timeLeft: duration, endDate: Date().addingTimeInterval(300))
         do {
-            activity = try Activity<TimerAttributes>.request(
-                attributes: attributes,
-                contentState: contentState,
-                pushType: nil
-            )
+//            activity = try Activity<TimerAttributes>.request(
+//                attributes: attributes,
+//                contentState: contentState,
+//                pushType: nil
+//            )
             startTimer()
         } catch {
             print("Failed to start live activity: \(error)")
@@ -40,11 +40,11 @@ class NoveltyTimerManager: ObservableObject {
 
     func endLiveActivity() {
         Task {
-            for activity in Activity<TimerAttributes>.activities {
-                await activity.end(dismissalPolicy: .immediate)
-            }
+//            for activity in Activity<TimerAttributes>.activities {
+//                await activity.end(dismissalPolicy: .immediate)
+//            }
             stopTimer()
-            self.activity = nil
+            //self.activity = nil
         }
     }
     
@@ -93,5 +93,4 @@ class NoveltyTimerManager: ObservableObject {
             duration = totalDuration
             progress = 1.0
         }
-
 }

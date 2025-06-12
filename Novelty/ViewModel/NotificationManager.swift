@@ -11,7 +11,7 @@ import SwiftUI
 
 class NotificationManager {
     
-    func scheduleDailyNotification() {
+    static func scheduleDailyNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Your novelty is here"
         content.body = "Tap to view today's challenge."
@@ -47,7 +47,12 @@ class NotificationManager {
         content.title = "Your delayed novelty is here"
         content.body = "Tap to view today's challenge."
         content.sound = .default
-        var seconds = Double.random(in: 0...self.secondsUntil0PM())
+        var secs = secondsUntil0PM()
+        if secs < 0 {
+            scheduleDailyNotification()
+            return
+        }
+        var seconds = Double.random(in: 0...secs)
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
         
