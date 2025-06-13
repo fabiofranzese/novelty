@@ -79,7 +79,7 @@ struct Onboarding: View {
                     StyledButton(title: "get started", action: {
                         print("Get Started tapped")
                         onboarding = true
-                        manager.proposeNewNovelty()
+                        manager.endonboarding()
                     })
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                     .animation(.easeOut(duration: 0.5))

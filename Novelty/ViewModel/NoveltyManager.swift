@@ -123,6 +123,19 @@ class NoveltyManager: ObservableObject {
         NextNoveltyId = novelty.id
     }
     
+    func endonboarding() {
+        var novelty = allNovelties.randomElement()!
+        novelty.status = .asking
+        novelty.duration = TimeInterval.random(in: 120...300)
+        novelty.colors = Array(hexColors.shuffled().prefix(4))
+        novelty.feedback = allFeedbacks.randomElement() ?? Feedback(id: "01", feedbackquestion: "How was your experience?")
+        print(novelty.colors?.description ?? "No colors available")
+        CurrentNoveltyStatus = .asking
+        todayNovelty = novelty
+        NextNoveltyId = novelty.id
+        NotificationManager.delayNotification()
+    }
+    
     func proposeTodayNovelty() {
         todayNovelty?.status = .proposed
         CurrentNoveltyStatus = .proposed
