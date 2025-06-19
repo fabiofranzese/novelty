@@ -71,7 +71,7 @@ struct MainView: View {
     func getDaysBetween() -> [Date] {
         var dates: [Date] = []
         var endDate = Date()
-        var startDate = Date(timeIntervalSince1970: StartDate)
+        var startDate = manager.history.first(where: { $0.id == "1"})?.createdAt ?? Date(timeIntervalSince1970: StartDate)
         var currentDate = startDate
         let calendar = Calendar.current
 
