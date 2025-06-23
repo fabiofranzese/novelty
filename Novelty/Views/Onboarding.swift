@@ -27,6 +27,7 @@ let onboardingSlides: [OnboardingSlide] = [
     OnboardingSlide(lines: ["to discard it", "place your phone face–down on any surface"], requiresNotificationPermission: false),
     OnboardingSlide(lines: ["after every novelty", "you'll be invited to capture the moment", "each time", "in a different way..."], requiresNotificationPermission: false),
     OnboardingSlide(lines: ["it could be", "in five words.", "in haiku.", "in emojis."], requiresNotificationPermission: false),
+    OnboardingSlide(lines: ["to save the feedback", "tap the screen with three fingers"], requiresNotificationPermission: false),
     OnboardingSlide(lines: ["no right answers", "just curious ones"], requiresNotificationPermission: false),
     OnboardingSlide(lines: ["ready to begin?", "you don't have to try hard", "you just have to", "notice!"], requiresNotificationPermission: false)
 ]
